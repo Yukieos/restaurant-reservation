@@ -1,1 +1,2 @@
-##COMS 4111 Project - Group 65##
+# Restaurant Reservation
+With user login, reserve, and search for restaurant in New York
