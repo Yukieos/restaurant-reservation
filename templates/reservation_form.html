@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}New Reservation{% endblock %}
+
+{% block content %}
+<section class="reservation-form">
+    <h1>Make a Reservation</h1>
+    <form method="POST" class="booking-form">
+        <div class="form-group">
+            <label for="restaurant">Select Restaurant:</label>
+            <select name="restaurant_id" restaurant_id="restaurant" required>
+                {% for r in restaurants %}
+                <option value="{{ r.restaurant_id }}">{{ r.restaurant_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="party_size">Party Size:</label>
+                <input type="number" id="party_size" name="party_size" 
+                       min="1" max="20" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" 
+                       min="{{ min_date }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" 
+                       min="11:00" max="22:00" required>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Confirm Reservation</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}My Reservations{% endblock %}
+
+{% block content %}
+<section class="reservations">
+    <h1>Your Upcoming Reservations</h1>
+    <div class="reservation-list">
+        {% if reservations %}
+            {% for res in reservations %}
+            <div class="reservation-card">
+                <div class="restaurant-info">
+                    <h3>{{ res.restaurant_name }}</h3>
+                    <p class="datetime">{{ res.date }} at {{ res.time }}</p>
+                </div>
+                <div class="reservation-details">
+                    <p>Party Size: {{ res.party_size }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>No upcoming reservations found.</p>
+                <a href="{{ url_for('restaurants') }}" class="cta-btn">Book a Table</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

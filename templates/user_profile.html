@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <h1>Your Profile</h1>
+    <div class="profile-info">
+        <div class="info-card">
+            <h2>Personal Information</h2>
+            <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone:</strong> {{ user.phone_number }}</p>
+        </div>
+
+        <div class="payment-card">
+            <h2>Payment Methods</h2>
+            {% if card %}
+            <div class="card-details">
+                <p>Card: **** **** **** {{ card.card_number[-4:] }}</p>
+                <p>Expires: {{ card.expiration_date // 100 }}/{{ card.expiration_date % 100 }}</p>
+            </div>
+            {% else %}
+            <p>No payment methods on file</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

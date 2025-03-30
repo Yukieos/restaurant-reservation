@@ -1,0 +1,36 @@
+<html>
+    {% extends "base.html" %}
+
+    {% block title %}All Restaurants{% endblock %}
+
+    {% block content %}
+    <section class="restaurant-list">
+        <h1>Restaurants</h1>
+        <div class="card-container">
+            {% for restaurant in restaurants %}
+            <div class="restaurant-card">
+                <h2>{{ restaurant.restaurant_name }}</h2>
+                <div class="restaurant-meta">
+                    <span class="price-range">{{ restaurant.price_range }}</span>
+                    <span class="rating">★ {{ restaurant.avg_rating}}</span>
+                </div>
+                <div class="menu-highlights">
+                    <h3>Popular Dishes</h3>
+                    <ul>
+                        {% for item in menus[restaurant.restaurant_id][:3] %}
+                        <li>{{ item.name }} - ${{ item.price }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="action-buttons">
+                    <a href="{{ url_for('restaurant_detail', restaurant_id=restaurant.restaurant_id) }}" 
+                    class="btn menu-btn">Details</a>
+                    <a href="{{ url_for('reservation_form', restaurant_id=restaurant.restaurant_id) }}" 
+                    class="btn reserve-btn">Reserve Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endblock %}
+</html>

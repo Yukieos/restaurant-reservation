@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<section class="login-section">
+    <div class="login-form">
+        <h1>Welcome Back</h1>
+        <form method="POST" action="/login">
+            <div class="form-group">
+                <label for="Phone_Number">Phone Number</label>
+                <input type="tel" id="Phone_Number" name="Phone_Number" 
+                       pattern="[0-9]{10}" placeholder="1234567890" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="Last_Name">Last Name</label>
+                <input type="text" id="Last_Name" name="Last_Name" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Log In</button>
+        </form>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</section>
+{% endblock %}

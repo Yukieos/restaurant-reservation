@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Restaurant Booking System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="{{ url_for('home') }}">🍽️ Restaurant Booking</a>
+        </div>
+        
+        <div class="nav-links">
+            <!-- 公共链接 -->
+            <a href="{{ url_for('restaurants') }}" class="nav-link">Browse Restaurants</a>
+            <a href="{{ url_for('reservation_form') }}" class="nav-link">New Reservation</a>
+
+            <!-- 动态用户菜单 -->
+            {% if g.user %}
+                <div class="user-menu">
+                    <span>Welcome, {{ g.user.first_name }}!</span>
+                    <a href="{{ url_for('my_reservations') }}" class="nav-link">My Bookings</a>
+                    <a href="{{ url_for('profile') }}" class="nav-link">Profile</a>
+                    <a href="{{ url_for('logout') }}" class="nav-link logout-btn">Logout</a>
+                </div>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="nav-link login-btn">Login/Signup</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!--content-->
+    <main class="content">
+        <!--flash-message-->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!--footer-->
+    <footer class="footer">
+        <p>© Author: Wanting You</p>
+        <p>Contact: christina.astar@gmail.com</p>
+    </footer>
+</body>
+</html>

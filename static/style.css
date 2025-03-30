@@ -1,0 +1,265 @@
+/* ===== 基础样式 ===== */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --text-color: #333;
+    --bg-light: #f8f9fa;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* ===== 导航栏 ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: var(--primary-color);
+    color: white;
+}
+
+.nav-brand a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.nav-link:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* ===== 主页 ===== */
+.cta-buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.cta-btn {
+    padding: 1rem 2rem;
+    background: var(--success-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: transform 0.3s;
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* ===== 餐厅列表 ===== */
+.restaurant-list {
+    padding: 2rem 5%;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.restaurant-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-5px);
+}
+
+.restaurant-meta {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.price-range::before {
+    content: 'Price: ';
+    color: #666;
+}
+
+.rating {
+    color: #f1c40f;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    flex: 1;
+    text-align: center;
+}
+
+.menu-btn {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.reserve-btn {
+    background: var(--success-color);
+    color: white;
+}
+
+/* =====detail pages ==== */
+.restaurant-header {
+    position: relative;
+    margin-bottom: 2rem;
+}
+.header-content {
+    position: absolute;
+    bottom: -50px;
+    left: 50px;
+    background: rgba(255,255,255,0.95);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 80%;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.review-card {
+    background: white;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}
+/*=====dashboard ====*/
+
+.dashboard-container {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 40px;
+    background: #fdfdfd;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  
+  .dashboard-container h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-container p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .cta-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #2a9d8f;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .cta-btn:hover {
+    background-color: #21867a;
+    transform: translateY(-2px);
+  }
+  
+  .dashboard-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.dashboard-buttons .cta-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.dashboard-buttons .cta-btn:hover {
+    background-color: #45a049;
+}
+
+.logout-btn {
+    background-color: #e74c3c;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}

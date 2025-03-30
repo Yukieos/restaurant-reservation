@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+<html>
+    {% block content %}
+    <div>
+        <h1>Discover the Best Dining Experience</h1>
+        <div class="cta-buttons">
+            <a href="{{ url_for('restaurants') }}" class="cta-btn">Explore Restaurants</a>
+            <a href="{{ url_for('reservation_form') }}" class="cta-btn">Book a Table Now</a>
+        </div>
+    </div>
+    {% endblock %}
+    <footer class="footer">
+        <p>© Author: Wanting You</p>
+        <p>Contact: christina.astar@gmail.com</p>
+    </footer>
+</html>

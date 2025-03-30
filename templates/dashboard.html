@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <h1>Welcome back!</h1>
+  <p>Glad to see you again. You can now view restaurants or book your next table 🍽️</p>
+
+  <div class="dashboard-buttons">
+    <a href="{{ url_for('restaurants') }}" class="cta-btn">Explore Restaurants</a>
+    <a href="{{ url_for('my_reservations') }}" class="cta-btn">My Reservations</a>
+    <a href="{{ url_for('logout') }}" class="cta-btn logout-btn">Logout</a>
+  </div>
+{% endblock %}

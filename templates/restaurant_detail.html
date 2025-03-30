@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}{{ restaurant.restaurant_name }}{% endblock %}
+
+{% block content %}
+<section class="restaurant-detail">
+    <!--header-->
+    <div class="restaurant-header">
+        <div class="header-content">
+            <h1>{{ restaurant.restaurant_name }}</h1>
+            <div class="stats">
+                <span class="rating">★ {{ restaurant.avg_rating|default('0.0') }} ({{ restaurant.review_count }} reviews)</span>
+                <span class="price">{{ restaurant.price_range }}</span>
+                <span class="hours">🕒 {{ restaurant.opening_hours }}</span>
+            </div>
+            <div class="actions">
+                <a href="{{ url_for('reservation_form', restaurant_id=restaurant.restaurant_id) }}" 
+                   class="btn reserve-btn">Reserve Now</a>
+                {% if g.user %}
+                <button class="btn bookmark-btn"> Save to Favorites</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!--main stuffs-->
+    <div class="main-content">
+        <!--left menu-->
+        <div class="menu-section">
+            <h2>Menu Highlights</h2>
+            {% for item in menu %}
+            <div class="menu-item">
+                <div class="item-info">
+                    <h3>{{ item.name }}</h3>
+                    <p class="ingredients">{{ item.ingredient }}</p>
+                    <p class="price">${{ item.price }}</p>
+                </div>
+                {% if item.image_url %}
+                <img src="{{ item.image_url }}" class="item-image" alt="{{ item.name }}">
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!--comments-->
+        <div class="review-section">
+            <h2>Recent Reviews</h2>
+            {% if reviews %}
+            {% for review in reviews %}
+            <div class="review-card">
+                <div class="user-info">
+                    <div class="avatar">{{ review.first_name|first }}{{ review.last_name|first }}</div>
+                    <div class="name-date">
+                        <span class="name">{{ review.first_name }} {{ review.last_name }}</span>
+                        <span class="date">{{ review.created_at.strftime('%b %d, %Y') }}</span>
+                    </div>
+                    <div class="rating">★ {{ review.rating }}</div>
+                </div>
+                <p class="comment">{{ review.comments }}</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="no-reviews">
+                <p>No reviews yet. Be the first to share your experience!</p>
+                {% if g.user %}
+                <a href="{{ url_for('write_review', restaurant_id=restaurant.restaurant_id) }}" 
+                   class="btn review-btn">Write a Review</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
