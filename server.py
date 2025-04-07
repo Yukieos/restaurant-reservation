@@ -1,5 +1,4 @@
 import os
-  # accessible as a variable in index.html:
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import flash, Flask, request, render_template, g, redirect, Response, session, url_for
@@ -9,35 +8,11 @@ tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
 app.secret_key = 'wanting-is-the-best-123'
 
-
-
-#
-# The following is a dummy URI that does not connect to a valid database. You will need to modify it to connect to your Part 2 database in order to use the data.
-#
-# XXX: The URI should be in the format of: 
-#
-#     postgresql://USER:PASSWORD@34.148.223.31/proj1part2
-#
-# For example, if you had username zy2431 and password 123123, then the following line would be:
-#
-#     DATABASEURI = "postgresql://zy2431:123123@34.148.223.31/proj1part2"
-#
-# Modify these with your own credentials you received from TA!
 DATABASE_USERNAME = "wy2470"
 DATABASE_PASSWRD = "342930"
 DATABASE_HOST = "34.148.223.31"
 DATABASEURI = f"postgresql://wy2470:342930@34.148.223.31/proj1part2"
-
-
-#
-# This line creates a database engine that knows how to connect to the URI above.
-#
 engine = create_engine(DATABASEURI)
-
-#
-# Example of running queries in your database
-# Note that this will probably not work if you already have a table named 'test' in your database, containing meaningful data. This is only an example showing you how to run queries in your database using SQLAlchemy.
-#
 
 @app.before_request
 def connect_db():
@@ -74,22 +49,6 @@ def load_user():
 			'SELECT * FROM Users WHERE User_ID = :uid', {'uid': user_id}
 		).fetchone()
 
-
-#
-# @app.route is a decorator around index() that means:
-#   run index() whenever the user tries to access the "/" path using a GET request
-#
-# If you wanted the user to go to, for example, localhost:8111/foobar/ with POST or GET then you could use:
-#
-#       @app.route("/foobar/", methods=["POST", "GET"])
-#
-# PROTIP: (the trailing / in the path is important)
-# 
-# see for routing: https://flask.palletsprojects.com/en/1.1.x/quickstart/#routing
-# see for decorators: http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
-#
-
-
 @app.route('/')
 def home():
 	return render_template('home.html',logged_in = 'User_ID' in session)
@@ -120,12 +79,9 @@ def restaurants():
 			ratings[id].append(dict(n._mapping))
 	return render_template('restaurants.html', restaurants = restaurants, menus = menus, ratings = ratings)
 
-@app.route('/restaurant/<int:restaurant_id>')
 def restaurant_detail(restaurant_id):
-    """餐厅详情页（包含菜单、评论）"""
     try:
         with engine.connect() as conn:
-            # 获取餐厅基本信息
             restaurant = conn.execute(
                 text("""
                 SELECT r.*, AVG(rev.rating) as avg_rating, COUNT(rev.review_id) as review_count
@@ -137,13 +93,12 @@ def restaurant_detail(restaurant_id):
                 {'rid': restaurant_id}
             ).mappings().fetchone()
 
-            # 获取完整菜单
             menu_items = conn.execute(
                 text("SELECT * FROM menu WHERE restaurant_id = :rid"),
                 {'rid': restaurant_id}
             ).mappings().fetchall()
 
-            # 获取最新评论
+
             reviews = conn.execute(
                 text("""
                 SELECT rev.*, u.first_name, u.last_name
